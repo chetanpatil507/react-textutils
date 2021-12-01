@@ -31,7 +31,7 @@ export default function TextForm(props) {
   return (
     <>
       <div
-        classname="container my-3 "
+        className="container my-3 "
         style={{ color: props.mode === "dark" ? "white" : "black" }}
       >
         <h1>{props.heading}</h1>
@@ -47,14 +47,23 @@ export default function TextForm(props) {
               color: props.mode === "dark" ? "white" : "black",
             }}
           ></textarea>
-          <button className="btn btn-primary my-3 mx-1" onClick={handleUpClick}>
+          <button
+            className="btn btn-primary my-3 mx-1 my-1"
+            disabled={text.length === 0}
+            onClick={handleUpClick}
+          >
             Convert to Uppercase
           </button>
-          <button className="btn btn-primary my-3 mx-1" onClick={handleLoClick}>
+          <button
+            className="btn btn-primary my-3 mx-1 my-1"
+            disabled={text.length === 0}
+            onClick={handleLoClick}
+          >
             Convert to Lowercase
           </button>
           <button
-            className="btn btn-primary my-3 mx-1"
+            className="btn btn-primary my-3 mx-1 my-1"
+            disabled={text.length === 0}
             onClick={handleClearClick}
           >
             Clear Text
@@ -67,10 +76,21 @@ export default function TextForm(props) {
       >
         <h2>Your Text Summary</h2>
         <p>
-          Word count is {text.split(" ").length - 1} and Characters are{" "}
-          {text.length}
+          Word count is{" "}
+          {
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          and Characters are {text.length}
         </p>
-        <p>{0.008 * text.split(" ").length} Minutes read</p>
+        <p>
+          {0.008 *
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          Minutes read
+        </p>
         <h2>Preview</h2>
         <p>
           {text.length > 0
